@@ -32,25 +32,26 @@ class ApiGoogleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-       // return "tet23";
-        $startTime = date("Y-m-d H:i:s");
-        $convertedTime = date('Y-m-d H:i:s', strtotime('+10 minutes', strtotime($startTime)));
-        if(substr($request["receipt"],-1)%2 != 0){
-            return  response(['result' => "success",'message' => 'Authentication is successfuly.','status' => true, 'expire' => $convertedTime]);
-        }else{
-            return  response(['result' => 'fail','message' => 'Authentication is failed.', 'status' => false, 'expire' => $convertedTime]);
+
+        $start_time = date("Y-m-d H:i:s");
+        $end_time = date('Y-m-d H:i:s', strtotime('+10 minutes', strtotime($start_time)));
+
+        if (substr($request["receipt"], -1) % 2 != 0) {
+            return response(['result' => "success", 'message' => 'Authentication is successfuly.', 'status' => true, 'expire' => $end_time]);
+        } else {
+            return response(['result' => 'fail', 'message' => 'Authentication is failed.', 'status' => false, 'expire' => $end_time]);
         }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -61,7 +62,7 @@ class ApiGoogleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -72,8 +73,8 @@ class ApiGoogleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -84,7 +85,7 @@ class ApiGoogleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

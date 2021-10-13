@@ -29,7 +29,7 @@ class ApiRegisterController extends Controller
     /**
      * Register a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function register(Request $request)
@@ -43,45 +43,43 @@ class ApiRegisterController extends Controller
         ]);
 
 
-         if ($validated->fails())
-        {
-            return response(['errors'=>$validated->errors()->all()],422);
+        if ($validated->fails()) {
+            return response(['errors' => $validated->errors()->all()], 422);
         }
         $validated = $validated->validated();
 
 
+        $device_check = Device::where(['uid' => $validated["uid"], 'appId' => $validated["appId"]])->first();
 
-       $device_check =  Device::where(['uid' => $validated["uid"], 'appId' => $validated["appId"]])->first();
+        if (!$device_check) {
 
-       if(!$device_check){
+            //add expire time(+5 minutes)
+            $start_time = date("Y-m-d H:i:s");
+            $end_time = date('Y-m-d H:i:s', strtotime('+5 minutes', strtotime($start_time)));
 
-           //add expire time(+5 minutes)
-           $startTime = date("Y-m-d H:i:s");
-           $convertedTime = date('Y-m-d H:i:s', strtotime('+5 minutes', strtotime($startTime)));
-
-           //Create Client Token
-           $client_token = Str::random(60);
-           //New uid Register
-                Device::create([
-               'uid'   => $validated["uid"],
-               'appId' => $validated["appId"],
-               'language'  => $validated["language"],
-                    'os' => $validated["os"],
-                    'client_token' => $client_token,
-                    'expire' => $convertedTime
-           ]);
-           return  response(['result' => 'success', 'message' => 'Register prosess is success.', 'client_token' => $client_token]);
-       }else{
-           //Uid aldready register
-           return  response(['result' => "success", 'message' => 'Device already register.', 'client_token' => $device_check["client_token"]]);
-       }
+            //Create Client Token
+            $client_token = Str::random(60);
+            //New uid Register
+            Device::create([
+                'uid' => $validated["uid"],
+                'appId' => $validated["appId"],
+                'language' => $validated["language"],
+                'os' => $validated["os"],
+                'client_token' => $client_token,
+                'expire' => $end_time
+            ]);
+            return response(['result' => 'success', 'message' => 'Register prosess is success.', 'client_token' => $client_token]);
+        } else {
+            //Uid aldready register
+            return response(['result' => "success", 'message' => 'Device already register.', 'client_token' => $device_check["client_token"]]);
+        }
 
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -92,8 +90,8 @@ class ApiRegisterController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -104,7 +102,7 @@ class ApiRegisterController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

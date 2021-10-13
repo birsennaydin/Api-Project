@@ -16,7 +16,7 @@ class CreateSubscriptionsTable extends Migration
 
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('device_id')->unique;
+            $table->unsignedBigInteger('device_id')->unique();
             $table->string('status');
             $table->dateTime('expire');
             $table->string("receipt");

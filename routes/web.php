@@ -20,13 +20,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/login', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 //Route::post('/google', [App\Http\Controllers\API\ApiGoogleController::class, 'store']);
 //Route::post('/ios', [ApiIosController::class, 'store'])->name('posts.store');
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //Auth::routes();
 

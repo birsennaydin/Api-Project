@@ -35,7 +35,7 @@ class ApiSubscriptionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function subscription(Request $request)
@@ -45,30 +45,29 @@ class ApiSubscriptionController extends Controller
         ]);
 
 
-        if ($validated->fails())
-        {
-            return response(['errors'=>$validated->errors()->all()],422);
+        if ($validated->fails()) {
+            return response(['errors' => $validated->errors()->all()], 422);
         }
         $validated = $validated->validated();
 
         $device_obj = new Device();
         $subscription_obj = new Subscription();
 
-       $device_info = $device_obj->device_info($validated["client_token"]);
-       if(!$device_info){
-           return  response(['result' => 'fail','message' => 'Authentication is failed.']);
-       }
-
+        //Get the device info
+        $device_info = $device_obj->device_info($validated["client_token"]);
+        if (!$device_info) {
+            return response(['result' => 'fail', 'message' => 'Authentication is failed.']);
+        }
+        //Get the Subscription info
         $subscription_infos = $subscription_obj->subscription_info($device_info->id);
-
-        if(!$subscription_infos){
-            return  response(['result' => 'fail','message' => 'Could not be find subscription.']);
+        if (!$subscription_infos) {
+            return response(['result' => 'fail', 'message' => 'Could not be find subscription.']);
         }
         $subscription_info["uid"] = $device_info->uid;
         $subscription_info["appId"] = $device_info->appId;
         $subscription_info["status"] = $subscription_infos->status;
         $subscription_info["Expire"] = $subscription_infos->expire;
-        return  response(['result' => 'success','message' => 'Subscription lists.', 'lists' => $subscription_info]);
+        return response(['result' => 'success', 'message' => 'Subscription lists.', 'lists' => $subscription_info]);
     }
-    
+
 }

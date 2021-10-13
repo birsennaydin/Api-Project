@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Routes;
 use MongoDB\Driver\Monitoring\Subscriber;
-use Tests\Feature\IosTest;
-use Tests\Unit\PostTest;
 use App\Traits\IosApi;
 use App\Traits\GoogleApi;
 use App\Models\Device;
@@ -44,7 +42,7 @@ class ApiPurchaseController extends Controller
      */
     public function purchase(Request $request)
     {
-        $subs = Subscription::all();
+
         $validated = Validator::make($request->all(), [
             'client_token' => 'required|string|max:80|min:60',
             'receipt' => 'required|string|max:64|min:60'
