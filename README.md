@@ -21,14 +21,13 @@
 
 # Usage
 To run this demo you'll need to have Mysql, Apache, Php installed
-
-Clone the repo
-Install the dependencies with composer install
-Copy .env.example to .env
-Create a  database
-Run php artisan key:generate
-Run php artisan migrate
-Run php artisan api-projects
+- Clone the repo
+- Install the dependencies with composer install
+- Copy .env.example to .env
+- Create a  database
+- Run php artisan key:generate
+- Run php artisan migrate
+- Run php artisan api-projects
 
 # Tecnical Details
 - Php 7.4.20
