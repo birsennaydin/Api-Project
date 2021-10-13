@@ -37,3 +37,5 @@ To run this demo you'll need to have Mysql, Apache, Php installed
 
 # Informations
  I did not use Passport as it did not fit the project scenario, but I installed and tested it to show how it is used. It's ready, you can use it easily if you want, I've set it to get a bearer token for the app and make requests.
+ # Add Info
+ In terms of performance, redis can also be used with the database, but the data loss that will occur in case of restart should be considered.
