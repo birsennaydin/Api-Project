@@ -20,7 +20,7 @@
 - If you want see database logic You can find sql file under the database/ (File name is api-project.sql)
 
 # Usage
-To run this demo you'll need to have Mysql, Apache, Php installed
+To run this demo you'll need to have Mysql, Php installed
 - Clone the repo
 - Install the dependencies with composer install
 - Copy .env.example to .env
@@ -31,7 +31,6 @@ To run this demo you'll need to have Mysql, Apache, Php installed
 # Tecnical Details
 - Php 7.4.20
 - Laravel 8.63.0
-- Apache
 - Mysql
 - Passport
 
