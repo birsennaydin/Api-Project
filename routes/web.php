@@ -18,12 +18,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-
-//Route::post('/google', [App\Http\Controllers\API\ApiGoogleController::class, 'store']);
-//Route::post('/ios', [ApiIosController::class, 'store'])->name('posts.store');
-
-
 //Auth::routes();
 
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
